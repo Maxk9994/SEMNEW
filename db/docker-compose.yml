@@ -1,12 +1,17 @@
-version: '3'
+version: '3.8'
 services:
-  # Application Dockerfile is in same folder which is .
-  app:
-    build: .
-
-  # db is is db folder
-  db:
-    build: db/.
-    restart: always
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: semdb
+      MYSQL_USER: semuser
+      MYSQL_PASSWORD: sempass
     ports:
-      - "33060:3306"
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
